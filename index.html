@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audan Transportes — Painel Financeiro</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       LOGIN
+  ═══════════════════════════════════════════════════ -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-bg-mesh"></div>
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="login-logo">
+          <span class="logo-icon">▲</span>
+        </div>
+        <div class="login-brand-text">
+          <span class="login-brand-name">Audan</span>
+          <span class="login-brand-sub">Transportes</span>
+        </div>
+      </div>
+      <h1 class="login-title">Acesse o painel</h1>
+      <p class="login-desc">Gestão financeira da sua frota em tempo real.</p>
+      <div class="login-form">
+        <div class="form-field">
+          <label class="form-label">E-mail</label>
+          <input class="form-input" type="email" placeholder="gestor@audantransportes.com.br" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Senha</label>
+          <input class="form-input" type="password" placeholder="••••••••" />
+        </div>
+        <div class="login-opts">
+          <label class="checkbox-wrap">
+            <input type="checkbox" class="checkbox-input" />
+            <span class="checkbox-custom"></span>
+            <span>Lembrar acesso</span>
+          </label>
+          <a href="#" class="login-link">Esqueci a senha</a>
+        </div>
+        <a href="#" class="btn btn-gradient btn-full" id="btn-login">Entrar no painel</a>
+      </div>
+      <p class="login-footer-text">Acesso exclusivo — Audan Transportes © 2026</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       APP SHELL
+  ═══════════════════════════════════════════════════ -->
+  <div class="app-shell hidden" id="app-shell">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="logo-pill">▲</div>
+          <div class="brand-label">
+            <span class="brand-main">Audan</span>
+            <span class="brand-sub">Transportes</span>
+          </div>
+        </div>
+        <button class="sidebar-toggle" id="sidebar-toggle" title="Recolher menu">
+          <span class="toggle-icon">«</span>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Principal</div>
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <span class="nav-icon">◈</span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-page="mensal">
+          <span class="nav-icon">◷</span>
+          <span class="nav-label">Visão Mensal</span>
+        </a>
+        <a href="#" class="nav-item" data-page="anual">
+          <span class="nav-icon">◫</span>
+          <span class="nav-label">Visão Anual</span>
+        </a>
+        <a href="#" class="nav-item" data-page="dre">
+          <span class="nav-icon">◉</span>
+          <span class="nav-label">DRE por Caminhão</span>
+        </a>
+
+        <div class="nav-section-label">Cadastros</div>
+        <a href="#" class="nav-item" data-page="caminhoes">
+          <span class="nav-icon">⬡</span>
+          <span class="nav-label">Caminhões</span>
+        </a>
+        <a href="#" class="nav-item" data-page="compromissos">
+          <span class="nav-icon">⬟</span>
+          <span class="nav-label">Compromissos</span>
+        </a>
+        <a href="#" class="nav-item" data-page="alertas">
+          <span class="nav-icon">◬</span>
+          <span class="nav-label">Alertas</span>
+          <span class="nav-badge">3</span>
+        </a>
+
+        <div class="nav-section-label">Sistema</div>
+        <a href="#" class="nav-item" data-page="configuracoes">
+          <span class="nav-icon">⚙</span>
+          <span class="nav-label">Configurações</span>
+        </a>
+        <a href="#" class="nav-item" id="btn-logout">
+          <span class="nav-icon">⏏</span>
+          <span class="nav-label">Sair</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avatar">GS</div>
+          <div class="user-info">
+            <span class="user-name">Gestor Sócio</span>
+            <span class="user-role">Administrador</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── MOBILE TOP BAR ── -->
+    <header class="topbar" id="topbar">
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="topbar-brand">
+        <span class="logo-pill small">▲</span>
+        <span class="topbar-name">Audan</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="topbar-alert-dot">3</span>
+      </div>
+    </header>
+
+    <!-- ── MOBILE OVERLAY ── -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="main-content" id="main-content">
+
+      <!-- ════════════ PAGE: DASHBOARD ════════════ -->
+      <section class="page active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Dashboard</h2>
+            <p class="page-subtitle">Maio 2026 — Audan Transportes</p>
+          </div>
+          <div class="page-header-actions">
+            <button class="btn btn-outline">Exportar</button>
+            <button class="btn btn-gradient">+ Lançamento</button>
+          </div>
+        </div>
+
+        <!-- KPI CARDS -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-primary">
+            <div class="kpi-label">Obrigações do Mês</div>
+            <div class="kpi-value">R$ 28.450<span class="kpi-dec">,00</span></div>
+            <div class="kpi-delta negative">↑ 4,2% vs abril</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Faturamento Mínimo</div>
+            <div class="kpi-value">R$ 32.700<span class="kpi-dec">,00</span></div>
+            <div class="kpi-delta">Meta calculada</div>
+          </div>
+          <div class="kpi-card kpi-warning">
+            <div class="kpi-label">Endividamento Total</div>
+            <div class="kpi-value">R$ 312.840<span class="kpi-dec">,00</span></div>
+            <div class="kpi-delta negative">↑ 1,8% vs mês ant.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Próximo Vencimento</div>
+            <div class="kpi-value-sm">30/05/2026</div>
+            <div class="kpi-sub">Financiamento Volvo · R$ 4.800</div>
+          </div>
+          <div class="kpi-card kpi-success">
+            <div class="kpi-label">Resultado CAM-01</div>
+            <div class="kpi-value">R$ 6.320<span class="kpi-dec">,00</span></div>
+            <div class="semaforo green">● Saudável (24,1%)</div>
+          </div>
+          <div class="kpi-card kpi-danger">
+            <div class="kpi-label">Resultado CAM-02</div>
+            <div class="kpi-value">R$ 1.100<span class="kpi-dec">,00</span></div>
+            <div class="semaforo yellow">● Atenção (4,8%)</div>
+          </div>
+          <div class="kpi-card kpi-alert">
+            <div class="kpi-label">Em Atraso</div>
+            <div class="kpi-value-sm">2 compromissos</div>
+            <div class="kpi-sub danger-text">R$ 3.200 pendentes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Faturamento Realizado</div>
+            <div class="kpi-value">R$ 38.900<span class="kpi-dec">,00</span></div>
+            <div class="kpi-delta positive">↑ Gap +R$ 6.200</div>
+          </div>
+        </div>
+
+        <!-- ALERTAS ATIVOS -->
+        <div class="section-row">
+          <div class="section-col wide">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Alertas Ativos</h3>
+                <span class="badge badge-danger">3 pendentes</span>
+              </div>
+              <div class="alert-list">
+                <div class="alert-item alert-red">
+                  <span class="alert-icon">⚠</span>
+                  <div class="alert-body">
+                    <strong>Compromisso em atraso</strong>
+                    <p>Empréstimo Banco do Brasil — CAM-02 · R$ 1.800 · venc. 15/05/2026</p>
+                  </div>
+                  <span class="badge badge-danger">Atraso</span>
+                </div>
+                <div class="alert-item alert-red">
+                  <span class="alert-icon">⚠</span>
+                  <div class="alert-body">
+                    <strong>Compromisso em atraso</strong>
+                    <p>Renegociação Pneus JK — CAM-01 · R$ 1.400 · venc. 18/05/2026</p>
+                  </div>
+                  <span class="badge badge-danger">Atraso</span>
+                </div>
+                <div class="alert-item alert-yellow">
+                  <span class="alert-icon">◷</span>
+                  <div class="alert-body">
+                    <strong>Vencimento em 3 dias</strong>
+                    <p>Seguro RCTR-C — CAM-01 · R$ 620 · venc. 31/05/2026</p>
+                  </div>
+                  <span class="badge badge-warning">Próximo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-col narrow">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Status da Frota</h3>
+              </div>
+              <div class="fleet-status">
+                <div class="truck-status-card">
+                  <div class="truck-header">
+                    <span class="truck-id">CAM-01</span>
+                    <span class="status-chip active">Ativo</span>
+                  </div>
+                  <div class="truck-name">Volvo Branco — FH 540</div>
+                  <div class="truck-plate">ABC-1234</div>
+                  <div class="truck-metrics">
+                    <div class="t-metric">
+                      <span class="t-m-label">Resultado</span>
+                      <span class="t-m-val green">+R$ 6.320</span>
+                    </div>
+                    <div class="t-metric">
+                      <span class="t-m-label">Margem</span>
+                      <span class="t-m-val green">24,1%</span>
+                    </div>
+                  </div>
+                  <div class="truck-bar-wrap">
+                    <div class="truck-bar" style="width:75%"></div>
+                  </div>
+                </div>
+                <div class="truck-status-card">
+                  <div class="truck-header">
+                    <span class="truck-id">CAM-02</span>
+                    <span class="status-chip maintenance">Manutenção</span>
+                  </div>
+                  <div class="truck-name">Scania Vermelho — R 450</div>
+                  <div class="truck-plate">XYZ-5678</div>
+                  <div class="truck-metrics">
+                    <div class="t-metric">
+                      <span class="t-m-label">Resultado</span>
+                      <span class="t-m-val yellow">+R$ 1.100</span>
+                    </div>
+                    <div class="t-metric">
+                      <span class="t-m-label">Margem</span>
+                      <span class="t-m-val yellow">4,8%</span>
+                    </div>
+                  </div>
+                  <div class="truck-bar-wrap">
+                    <div class="truck-bar warning" style="width:24%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENDIVIDAMENTO HORIZONTE -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Endividamento por Horizonte de Prazo</h3>
+            <span class="card-total">Total: R$ 312.840</span>
+          </div>
+          <div class="horizon-grid">
+            <div class="horizon-item horizon-short">
+              <div class="h-label">Curto Prazo</div>
+              <div class="h-sublabel">Próximos 12 meses</div>
+              <div class="h-value">R$ 98.400</div>
+              <div class="h-pct">31,5%</div>
+              <div class="h-bar-wrap"><div class="h-bar" style="width:31.5%"></div></div>
+            </div>
+            <div class="horizon-item horizon-mid">
+              <div class="h-label">Médio Prazo</div>
+              <div class="h-sublabel">13 a 36 meses</div>
+              <div class="h-value">R$ 142.200</div>
+              <div class="h-pct">45,5%</div>
+              <div class="h-bar-wrap"><div class="h-bar" style="width:45.5%"></div></div>
+            </div>
+            <div class="horizon-item horizon-long">
+              <div class="h-label">Longo Prazo</div>
+              <div class="h-sublabel">Acima de 36 meses</div>
+              <div class="h-value">R$ 72.240</div>
+              <div class="h-pct">23,1%</div>
+              <div class="h-bar-wrap"><div class="h-bar" style="width:23.1%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: VISÃO MENSAL ════════════ -->
+      <section class="page" id="page-mensal">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Visão Mensal</h2>
+            <p class="page-subtitle">Compromissos e obrigações do período</p>
+          </div>
+          <div class="month-nav">
+            <button class="btn btn-outline btn-icon">‹</button>
+            <span class="month-label">Maio 2026</span>
+            <button class="btn btn-outline btn-icon">›</button>
+          </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label class="filter-label">Caminhão</label>
+            <select class="filter-select">
+              <option>Todos</option>
+              <option>CAM-01</option>
+              <option>CAM-02</option>
+              <option>Geral</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Categoria</label>
+            <select class="filter-select">
+              <option>Todas</option>
+              <option>FIN — Financiamento</option>
+              <option>EMP — Empréstimo</option>
+              <option>PNE — Pneus</option>
+              <option>MAN — Manutenção</option>
+              <option>SEG — Seguro</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Status</label>
+            <select class="filter-select">
+              <option>Todos</option>
+              <option>Ativo</option>
+              <option>Em atraso</option>
+              <option>Quitado</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Recorrência</label>
+            <select class="filter-select">
+              <option>Todos</option>
+              <option>Parcela fixa</option>
+              <option>Mensal recorrente</option>
+              <option>Único</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- RESUMO DO MÊS -->
+        <div class="month-summary-grid">
+          <div class="month-sum-card">
+            <span class="ms-label">Obrigações Fixas</span>
+            <span class="ms-value">R$ 21.350</span>
+          </div>
+          <div class="month-sum-card">
+            <span class="ms-label">Despesas Variáveis</span>
+            <span class="ms-value">R$ 7.100</span>
+          </div>
+          <div class="month-sum-card ms-total">
+            <span class="ms-label">Total a Pagar</span>
+            <span class="ms-value">R$ 28.450</span>
+          </div>
+          <div class="month-sum-card ms-meta">
+            <span class="ms-label">Fat. Mínimo</span>
+            <span class="ms-value">R$ 32.700</span>
+          </div>
+        </div>
+
+        <!-- TABELA DE COMPROMISSOS -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Vencimentos do Mês</h3>
+            <button class="btn btn-gradient btn-sm">+ Novo</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Descrição</th>
+                  <th>Caminhão</th>
+                  <th>Categoria</th>
+                  <th>Parcela</th>
+                  <th>Valor</th>
+                  <th>Vencimento</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-desc">Financiamento Volvo FH 540</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">FIN</span></td>
+                  <td class="td-parcela">18/48</td>
+                  <td class="td-value">R$ 4.800</td>
+                  <td>30/05/2026</td>
+                  <td><span class="status-pill pend">Pendente</span></td>
+                  <td class="td-actions"><button class="btn-table">✓ Pagar</button></td>
+                </tr>
+                <tr>
+                  <td class="td-desc">Empréstimo Banco do Brasil</td>
+                  <td><span class="chip chip-cam2">CAM-02</span></td>
+                  <td><span class="chip chip-cat">EMP</span></td>
+                  <td class="td-parcela">6/24</td>
+                  <td class="td-value">R$ 1.800</td>
+                  <td>15/05/2026</td>
+                  <td><span class="status-pill atraso">Em Atraso</span></td>
+                  <td class="td-actions"><button class="btn-table warn">⚠ Regularizar</button></td>
+                </tr>
+                <tr>
+                  <td class="td-desc">Renegociação Pneus JK</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">RENEG</span></td>
+                  <td class="td-parcela">3/12</td>
+                  <td class="td-value">R$ 1.400</td>
+                  <td>18/05/2026</td>
+                  <td><span class="status-pill atraso">Em Atraso</span></td>
+                  <td class="td-actions"><button class="btn-table warn">⚠ Regularizar</button></td>
+                </tr>
+                <tr>
+                  <td class="td-desc">Seguro RCTR-C Volvo</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">SEG</span></td>
+                  <td class="td-parcela">Mensal</td>
+                  <td class="td-value">R$ 620</td>
+                  <td>31/05/2026</td>
+                  <td><span class="status-pill pend">Pendente</span></td>
+                  <td class="td-actions"><button class="btn-table">✓ Pagar</button></td>
+                </tr>
+                <tr>
+                  <td class="td-desc">IPVA CAM-02</td>
+                  <td><span class="chip chip-cam2">CAM-02</span></td>
+                  <td><span class="chip chip-cat">IMP</span></td>
+                  <td class="td-parcela">4/10</td>
+                  <td class="td-value">R$ 980</td>
+                  <td>10/05/2026</td>
+                  <td><span class="status-pill paid">Pago</span></td>
+                  <td class="td-actions"><button class="btn-table ghost">Ver</button></td>
+                </tr>
+                <tr>
+                  <td class="td-desc">Honorários Contador</td>
+                  <td><span class="chip chip-geral">Geral</span></td>
+                  <td><span class="chip chip-cat">CONT</span></td>
+                  <td class="td-parcela">Mensal</td>
+                  <td class="td-value">R$ 750</td>
+                  <td>05/05/2026</td>
+                  <td><span class="status-pill paid">Pago</span></td>
+                  <td class="td-actions"><button class="btn-table ghost">Ver</button></td>
+                </tr>
+                <tr>
+                  <td class="td-desc">Combustível Estimado CAM-01</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">COMB</span></td>
+                  <td class="td-parcela">Variável</td>
+                  <td class="td-value">R$ 3.800</td>
+                  <td>—</td>
+                  <td><span class="status-pill pend">Previsto</span></td>
+                  <td class="td-actions"><button class="btn-table">✎ Editar</button></td>
+                </tr>
+                <tr class="row-future">
+                  <td class="td-desc">Financiamento Scania R 450</td>
+                  <td><span class="chip chip-cam2">CAM-02</span></td>
+                  <td><span class="chip chip-cat">FIN</span></td>
+                  <td class="td-parcela">Início: Jun/26</td>
+                  <td class="td-value">R$ 5.200</td>
+                  <td>10/06/2026</td>
+                  <td><span class="status-pill future">Futuro</span></td>
+                  <td class="td-actions"><button class="btn-table ghost">Ver</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- META FATURAMENTO -->
+        <div class="card card-meta">
+          <div class="card-header">
+            <h3 class="card-title">Meta de Faturamento — Maio 2026</h3>
+          </div>
+          <div class="meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Faturamento Mínimo</span>
+              <span class="meta-val">R$ 32.700</span>
+            </div>
+            <div class="meta-item highlight">
+              <span class="meta-label">Faturamento Alvo (+15%)</span>
+              <span class="meta-val">R$ 37.605</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Realizado</span>
+              <span class="meta-val success">R$ 38.900</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Gap</span>
+              <span class="meta-val success">+R$ 1.295 ✓</span>
+            </div>
+          </div>
+          <div class="meta-bar-track">
+            <div class="meta-bar-fill" style="width: 103%"></div>
+            <span class="meta-bar-label">103% da meta atingida</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: VISÃO ANUAL ════════════ -->
+      <section class="page" id="page-anual">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Visão Anual</h2>
+            <p class="page-subtitle">Endividamento e projeções — 2026</p>
+          </div>
+          <div class="page-header-actions">
+            <select class="filter-select">
+              <option>2026</option>
+              <option>2027</option>
+            </select>
+            <button class="btn btn-outline">Exportar PDF</button>
+          </div>
+        </div>
+
+        <!-- INDICADORES ANUAIS -->
+        <div class="kpi-grid">
+          <div class="kpi-card kpi-primary">
+            <div class="kpi-label">Endividamento Total</div>
+            <div class="kpi-value">R$ 312.840</div>
+            <div class="kpi-delta">Saldo devedor ativo</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Compromisso Mensal Médio</div>
+            <div class="kpi-value">R$ 28.900</div>
+            <div class="kpi-delta">Média anual</div>
+          </div>
+          <div class="kpi-card kpi-warning">
+            <div class="kpi-label">Relação Dívida/Fat.</div>
+            <div class="kpi-value">73,2%</div>
+            <div class="kpi-delta negative">Acima do ideal</div>
+          </div>
+          <div class="kpi-card kpi-danger">
+            <div class="kpi-label">Mês de Maior Pressão</div>
+            <div class="kpi-value-sm">Julho 2026</div>
+            <div class="kpi-sub danger-text">R$ 34.100 em vencimentos</div>
+          </div>
+        </div>
+
+        <!-- CALENDÁRIO ANUAL -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calendário de Obrigações — 2026</h3>
+          </div>
+          <div class="cal-grid">
+            <div class="cal-month">
+              <div class="cal-m-label">Jan</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:62%"></div></div>
+              <div class="cal-m-val">R$ 25.300</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Fev</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:55%"></div></div>
+              <div class="cal-m-val">R$ 22.800</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Mar</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:70%"></div></div>
+              <div class="cal-m-val">R$ 27.400</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Abr</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:68%"></div></div>
+              <div class="cal-m-val">R$ 27.300</div>
+            </div>
+            <div class="cal-month cal-month-current">
+              <div class="cal-m-label">Mai ●</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar active" style="height:72%"></div></div>
+              <div class="cal-m-val">R$ 28.450</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Jun</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:78%"></div></div>
+              <div class="cal-m-val">R$ 30.200</div>
+            </div>
+            <div class="cal-month cal-month-peak">
+              <div class="cal-m-label">Jul ▲</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar danger" style="height:88%"></div></div>
+              <div class="cal-m-val danger-text">R$ 34.100</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Ago</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:75%"></div></div>
+              <div class="cal-m-val">R$ 29.700</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Set</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:65%"></div></div>
+              <div class="cal-m-val">R$ 26.100</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Out</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:60%"></div></div>
+              <div class="cal-m-val">R$ 24.600</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Nov</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:58%"></div></div>
+              <div class="cal-m-val">R$ 23.400</div>
+            </div>
+            <div class="cal-month">
+              <div class="cal-m-label">Dez</div>
+              <div class="cal-m-bar-wrap"><div class="cal-m-bar" style="height:50%"></div></div>
+              <div class="cal-m-val">R$ 20.100</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BREAKDOWN -->
+        <div class="section-row">
+          <div class="section-col">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Por Categoria</h3></div>
+              <div class="breakdown-list">
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:var(--grad-1)"></span>
+                  <span class="bdwn-label">Financiamento (FIN)</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:42%"></div></div>
+                  <span class="bdwn-pct">42%</span>
+                </div>
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:var(--grad-3)"></span>
+                  <span class="bdwn-label">Empréstimo (EMP)</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:28%;background:var(--grad-3)"></div></div>
+                  <span class="bdwn-pct">28%</span>
+                </div>
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:var(--grad-5)"></span>
+                  <span class="bdwn-label">Manutenção (MAN)</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:14%;background:var(--grad-5)"></div></div>
+                  <span class="bdwn-pct">14%</span>
+                </div>
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:#ea94ff"></span>
+                  <span class="bdwn-label">Pneus (PNE)</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:9%;background:#ea94ff"></div></div>
+                  <span class="bdwn-pct">9%</span>
+                </div>
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:var(--accent-purple)"></span>
+                  <span class="bdwn-label">Outros</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:7%;background:var(--accent-purple)"></div></div>
+                  <span class="bdwn-pct">7%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section-col">
+            <div class="card">
+              <div class="card-header"><h3 class="card-title">Por Caminhão</h3></div>
+              <div class="breakdown-list">
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:var(--grad-1)"></span>
+                  <span class="bdwn-label">CAM-01 — Volvo</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:54%"></div></div>
+                  <span class="bdwn-pct">54%</span>
+                </div>
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:var(--grad-4)"></span>
+                  <span class="bdwn-label">CAM-02 — Scania</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:31%;background:var(--grad-4)"></div></div>
+                  <span class="bdwn-pct">31%</span>
+                </div>
+                <div class="bdwn-item">
+                  <span class="bdwn-dot" style="background:#a759ff"></span>
+                  <span class="bdwn-label">Geral (rateado)</span>
+                  <div class="bdwn-bar-wrap"><div class="bdwn-bar" style="width:15%;background:#a759ff"></div></div>
+                  <span class="bdwn-pct">15%</span>
+                </div>
+              </div>
+              <div class="card-header" style="margin-top:1.5rem"><h3 class="card-title">Projeção de Quitação</h3></div>
+              <div class="quitacao-list">
+                <div class="quit-item">
+                  <div class="quit-desc">Renegociação Pneus JK</div>
+                  <div class="quit-bar-wrap"><div class="quit-bar" style="width:25%"></div></div>
+                  <div class="quit-date">Mar/2027</div>
+                </div>
+                <div class="quit-item">
+                  <div class="quit-desc">Empréstimo Banco do Brasil</div>
+                  <div class="quit-bar-wrap"><div class="quit-bar" style="width:45%"></div></div>
+                  <div class="quit-date">Nov/2027</div>
+                </div>
+                <div class="quit-item">
+                  <div class="quit-desc">Financiamento Volvo FH</div>
+                  <div class="quit-bar-wrap"><div class="quit-bar" style="width:62%"></div></div>
+                  <div class="quit-date">Nov/2029</div>
+                </div>
+                <div class="quit-item">
+                  <div class="quit-desc">Financiamento Scania R 450</div>
+                  <div class="quit-bar-wrap"><div class="quit-bar" style="width:80%"></div></div>
+                  <div class="quit-date">Jun/2031</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: DRE ════════════ -->
+      <section class="page" id="page-dre">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">DRE por Caminhão</h2>
+            <p class="page-subtitle">Resultado operacional — Maio 2026</p>
+          </div>
+          <div class="month-nav">
+            <button class="btn btn-outline btn-icon">‹</button>
+            <span class="month-label">Maio 2026</span>
+            <button class="btn btn-outline btn-icon">›</button>
+          </div>
+        </div>
+
+        <div class="dre-grid">
+          <!-- CAM-01 -->
+          <div class="dre-card dre-green">
+            <div class="dre-truck-header">
+              <div>
+                <div class="dre-truck-id">CAM-01</div>
+                <div class="dre-truck-name">Volvo Branco — FH 540</div>
+              </div>
+              <div class="semaforo-big green">● Saudável</div>
+            </div>
+            <div class="dre-table">
+              <div class="dre-row dre-section">Receitas</div>
+              <div class="dre-row">
+                <span>Frete bruto recebido</span>
+                <span class="dre-val pos">R$ 26.200</span>
+              </div>
+              <div class="dre-row dre-sub">
+                <span>↳ 60% no carregamento</span>
+                <span class="dre-val pos">R$ 15.720</span>
+              </div>
+              <div class="dre-row dre-sub">
+                <span>↳ 40% na descarga</span>
+                <span class="dre-val pos">R$ 10.480</span>
+              </div>
+              <div class="dre-row dre-section">Despesas Diretas</div>
+              <div class="dre-row">
+                <span>(–) Combustível</span>
+                <span class="dre-val neg">R$ 3.800</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Pedágio</span>
+                <span class="dre-val neg">R$ 1.200</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Comissão motorista (12%)</span>
+                <span class="dre-val neg">R$ 3.144</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Manutenção</span>
+                <span class="dre-val neg">R$ 2.100</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Seguro</span>
+                <span class="dre-val neg">R$ 620</span>
+              </div>
+              <div class="dre-row dre-section">Despesas Financeiras</div>
+              <div class="dre-row">
+                <span>(–) Financiamento</span>
+                <span class="dre-val neg">R$ 4.800</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Rateio Geral (50%)</span>
+                <span class="dre-val neg">R$ 875</span>
+              </div>
+              <div class="dre-row dre-result">
+                <span>Resultado Operacional</span>
+                <span class="dre-val pos big">R$ 9.661</span>
+              </div>
+            </div>
+            <div class="dre-metrics">
+              <div class="dre-metric">
+                <span class="dm-label">Margem</span>
+                <span class="dm-val green">36,9%</span>
+              </div>
+              <div class="dre-metric">
+                <span class="dm-label">Acum. Ano</span>
+                <span class="dm-val green">R$ 41.200</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CAM-02 -->
+          <div class="dre-card dre-yellow">
+            <div class="dre-truck-header">
+              <div>
+                <div class="dre-truck-id">CAM-02</div>
+                <div class="dre-truck-name">Scania Vermelho — R 450</div>
+              </div>
+              <div class="semaforo-big yellow">● Atenção</div>
+            </div>
+            <div class="dre-note warning-note">
+              ⚠ Caminhão em manutenção — receita parcial no período
+            </div>
+            <div class="dre-table">
+              <div class="dre-row dre-section">Receitas</div>
+              <div class="dre-row">
+                <span>Frete bruto recebido</span>
+                <span class="dre-val pos">R$ 22.800</span>
+              </div>
+              <div class="dre-row dre-sub">
+                <span>↳ 60% no carregamento</span>
+                <span class="dre-val pos">R$ 13.680</span>
+              </div>
+              <div class="dre-row dre-sub">
+                <span>↳ 40% na descarga</span>
+                <span class="dre-val pos">R$ 9.120</span>
+              </div>
+              <div class="dre-row dre-section">Despesas Diretas</div>
+              <div class="dre-row">
+                <span>(–) Combustível</span>
+                <span class="dre-val neg">R$ 3.200</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Pedágio</span>
+                <span class="dre-val neg">R$ 980</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Comissão motorista (15%)</span>
+                <span class="dre-val neg">R$ 3.420</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Manutenção (diluída)</span>
+                <span class="dre-val neg">R$ 4.800</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) IPVA / Impostos</span>
+                <span class="dre-val neg">R$ 980</span>
+              </div>
+              <div class="dre-row dre-section">Despesas Financeiras</div>
+              <div class="dre-row">
+                <span>(–) Empréstimo BB</span>
+                <span class="dre-val neg">R$ 1.800</span>
+              </div>
+              <div class="dre-row">
+                <span>(–) Rateio Geral (50%)</span>
+                <span class="dre-val neg">R$ 875</span>
+              </div>
+              <div class="dre-row dre-result">
+                <span>Resultado Operacional</span>
+                <span class="dre-val yellow-val big">R$ 6.745</span>
+              </div>
+            </div>
+            <div class="dre-metrics">
+              <div class="dre-metric">
+                <span class="dm-label">Margem</span>
+                <span class="dm-val yellow">29,6%</span>
+              </div>
+              <div class="dre-metric">
+                <span class="dm-label">Acum. Ano</span>
+                <span class="dm-val yellow">R$ 28.400</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: CAMINHÕES ════════════ -->
+      <section class="page" id="page-caminhoes">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Cadastro de Caminhões</h2>
+            <p class="page-subtitle">Ativos da frota Audan Transportes</p>
+          </div>
+          <button class="btn btn-gradient">+ Novo Caminhão</button>
+        </div>
+
+        <div class="truck-cards-grid">
+          <!-- CAM-01 -->
+          <div class="truck-full-card">
+            <div class="truck-full-header">
+              <div class="truck-full-id">CAM-01</div>
+              <span class="status-chip active">Ativo</span>
+            </div>
+            <div class="truck-full-name">Volvo Branco</div>
+            <div class="truck-fields">
+              <div class="tf-row">
+                <span class="tf-label">Modelo</span>
+                <span class="tf-val">Volvo FH 540</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Placa</span>
+                <span class="tf-val tf-mono">ABC-1234</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Ano</span>
+                <span class="tf-val">2020</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Valor Patrimonial</span>
+                <span class="tf-val">R$ 380.000</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Entrada na Frota</span>
+                <span class="tf-val">12/03/2021</span>
+              </div>
+            </div>
+            <div class="truck-full-actions">
+              <button class="btn btn-outline btn-sm">Editar</button>
+              <button class="btn btn-ghost btn-sm">Ver DRE</button>
+            </div>
+          </div>
+
+          <!-- CAM-02 -->
+          <div class="truck-full-card truck-maintenance">
+            <div class="truck-full-header">
+              <div class="truck-full-id">CAM-02</div>
+              <span class="status-chip maintenance">Em Manutenção</span>
+            </div>
+            <div class="truck-full-name">Scania Vermelho</div>
+            <div class="truck-note-banner">⚠ Receita prevista = R$ 0 neste período</div>
+            <div class="truck-fields">
+              <div class="tf-row">
+                <span class="tf-label">Modelo</span>
+                <span class="tf-val">Scania R 450</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Placa</span>
+                <span class="tf-val tf-mono">XYZ-5678</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Ano</span>
+                <span class="tf-val">2019</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Valor Patrimonial</span>
+                <span class="tf-val">R$ 320.000</span>
+              </div>
+              <div class="tf-row">
+                <span class="tf-label">Entrada na Frota</span>
+                <span class="tf-val">05/08/2020</span>
+              </div>
+            </div>
+            <div class="truck-full-actions">
+              <button class="btn btn-outline btn-sm">Editar</button>
+              <button class="btn btn-ghost btn-sm">Ver DRE</button>
+            </div>
+          </div>
+
+          <!-- ADD NEW -->
+          <div class="truck-add-card">
+            <span class="truck-add-icon">+</span>
+            <span class="truck-add-label">Adicionar Caminhão</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: COMPROMISSOS ════════════ -->
+      <section class="page" id="page-compromissos">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Compromissos Financeiros</h2>
+            <p class="page-subtitle">Gerenciamento de obrigações</p>
+          </div>
+          <button class="btn btn-gradient">+ Novo Compromisso</button>
+        </div>
+
+        <!-- FORM NOVO COMPROMISSO -->
+        <div class="card card-form">
+          <div class="card-header">
+            <h3 class="card-title">Cadastrar Compromisso</h3>
+            <span class="badge badge-info">Novo</span>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label class="form-label">Descrição</label>
+              <input class="form-input" type="text" placeholder="Ex: Financiamento Pneus JK — CAM-01" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Categoria</label>
+              <select class="form-input">
+                <option>FIN — Financiamento</option>
+                <option>EMP — Empréstimo</option>
+                <option>RENEG — Renegociação</option>
+                <option>PNE — Pneus</option>
+                <option>MAN — Manutenção</option>
+                <option>SEG — Seguro</option>
+                <option>IMP — Impostos e taxas</option>
+                <option>CONT — Contabilidade</option>
+                <option>COMB — Combustível</option>
+                <option>PED — Pedágio</option>
+                <option>COM — Comissão motorista</option>
+                <option>ADM — Administrativo</option>
+                <option>OUT — Outros</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Caminhão</label>
+              <select class="form-input">
+                <option>CAM-01</option>
+                <option>CAM-02</option>
+                <option>Geral</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Tipo</label>
+              <select class="form-input">
+                <option>Parcela fixa</option>
+                <option>Mensal recorrente</option>
+                <option>Único</option>
+                <option>Variável</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Valor da Parcela (R$)</label>
+              <input class="form-input" type="text" placeholder="0,00" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Credor</label>
+              <input class="form-input" type="text" placeholder="Ex: Banco do Brasil" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Data de Início</label>
+              <input class="form-input" type="date" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Data de Fim</label>
+              <input class="form-input" type="date" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Total de Parcelas</label>
+              <input class="form-input" type="number" placeholder="Ex: 48" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Parcelas Pagas</label>
+              <input class="form-input" type="number" placeholder="0" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Taxa de Juros (% a.m.)</label>
+              <input class="form-input" type="text" placeholder="Ex: 1,5" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Status</label>
+              <select class="form-input">
+                <option>Ativo</option>
+                <option>Quitado</option>
+                <option>Renegociado</option>
+                <option>Em atraso</option>
+              </select>
+            </div>
+            <div class="form-field form-full">
+              <label class="form-label">Observações</label>
+              <textarea class="form-input form-textarea" placeholder="Notas adicionais..."></textarea>
+            </div>
+          </div>
+          <div class="form-footer">
+            <div class="calc-preview">
+              <span class="calc-item"><strong>Parcelas Restantes:</strong> —</span>
+              <span class="calc-item"><strong>Saldo Devedor:</strong> —</span>
+              <span class="calc-item"><strong>Quitação Prevista:</strong> —</span>
+              <span class="calc-item"><strong>Custo Total:</strong> —</span>
+            </div>
+            <div class="form-btns">
+              <button class="btn btn-ghost">Cancelar</button>
+              <button class="btn btn-gradient">Salvar Compromisso</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- LISTA EXISTENTE -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Compromissos Ativos</h3>
+            <div class="header-filters">
+              <select class="filter-select sm">
+                <option>Todos</option>
+                <option>CAM-01</option>
+                <option>CAM-02</option>
+              </select>
+              <select class="filter-select sm">
+                <option>Todos os status</option>
+                <option>Ativo</option>
+                <option>Em atraso</option>
+                <option>Quitado</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Descrição</th>
+                  <th>Credor</th>
+                  <th>Caminhão</th>
+                  <th>Cat.</th>
+                  <th>Parcela</th>
+                  <th>Prog.</th>
+                  <th>Saldo Dev.</th>
+                  <th>Quitação</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-id">C-001</td>
+                  <td class="td-desc">Financiamento Volvo FH 540</td>
+                  <td>Banco Volvo</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">FIN</span></td>
+                  <td>R$ 4.800</td>
+                  <td>
+                    <div class="prog-wrap">
+                      <div class="prog-bar" style="width:37.5%"></div>
+                      <span class="prog-txt">18/48</span>
+                    </div>
+                  </td>
+                  <td>R$ 144.000</td>
+                  <td>Nov/2029</td>
+                  <td><span class="status-pill ativo">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="td-id">C-002</td>
+                  <td class="td-desc">Empréstimo Banco do Brasil</td>
+                  <td>Banco do Brasil</td>
+                  <td><span class="chip chip-cam2">CAM-02</span></td>
+                  <td><span class="chip chip-cat">EMP</span></td>
+                  <td>R$ 1.800</td>
+                  <td>
+                    <div class="prog-wrap">
+                      <div class="prog-bar" style="width:25%"></div>
+                      <span class="prog-txt">6/24</span>
+                    </div>
+                  </td>
+                  <td>R$ 32.400</td>
+                  <td>Nov/2027</td>
+                  <td><span class="status-pill atraso">Em Atraso</span></td>
+                </tr>
+                <tr>
+                  <td class="td-id">C-003</td>
+                  <td class="td-desc">Renegociação Pneus JK</td>
+                  <td>Pneus JK</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">RENEG</span></td>
+                  <td>R$ 1.400</td>
+                  <td>
+                    <div class="prog-wrap">
+                      <div class="prog-bar danger" style="width:25%"></div>
+                      <span class="prog-txt">3/12</span>
+                    </div>
+                  </td>
+                  <td>R$ 12.600</td>
+                  <td>Mar/2027</td>
+                  <td><span class="status-pill atraso">Em Atraso</span></td>
+                </tr>
+                <tr>
+                  <td class="td-id">C-004</td>
+                  <td class="td-desc">IPVA CAM-02 — Parcelado</td>
+                  <td>DETRAN</td>
+                  <td><span class="chip chip-cam2">CAM-02</span></td>
+                  <td><span class="chip chip-cat">IMP</span></td>
+                  <td>R$ 980</td>
+                  <td>
+                    <div class="prog-wrap">
+                      <div class="prog-bar" style="width:40%"></div>
+                      <span class="prog-txt">4/10</span>
+                    </div>
+                  </td>
+                  <td>R$ 5.880</td>
+                  <td>Jan/2027</td>
+                  <td><span class="status-pill ativo">Ativo</span></td>
+                </tr>
+                <tr>
+                  <td class="td-id">C-005</td>
+                  <td class="td-desc">Seguro RCTR-C — Volvo</td>
+                  <td>Porto Seguro</td>
+                  <td><span class="chip chip-cam1">CAM-01</span></td>
+                  <td><span class="chip chip-cat">SEG</span></td>
+                  <td>R$ 620</td>
+                  <td>
+                    <div class="prog-wrap">
+                      <div class="prog-bar" style="width:100%"></div>
+                      <span class="prog-txt">Mensal</span>
+                    </div>
+                  </td>
+                  <td>—</td>
+                  <td>Indeterminado</td>
+                  <td><span class="status-pill ativo">Ativo</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: ALERTAS ════════════ -->
+      <section class="page" id="page-alertas">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Alertas e Indicadores</h2>
+            <p class="page-subtitle">Monitoramento em tempo real</p>
+          </div>
+          <span class="badge badge-danger">3 alertas ativos</span>
+        </div>
+
+        <div class="alert-full-grid">
+          <div class="alert-full-item red">
+            <div class="afi-icon">⚠</div>
+            <div class="afi-body">
+              <div class="afi-title">Compromisso em Atraso</div>
+              <div class="afi-desc">Empréstimo Banco do Brasil — CAM-02</div>
+              <div class="afi-detail">Valor: R$ 1.800 · Vencimento: 15/05/2026 · 13 dias em atraso</div>
+              <div class="afi-actions">
+                <button class="btn btn-sm btn-danger">Regularizar</button>
+                <button class="btn btn-sm btn-ghost">Renegociar</button>
+              </div>
+            </div>
+            <div class="afi-status"><span class="status-pill atraso">Crítico</span></div>
+          </div>
+
+          <div class="alert-full-item red">
+            <div class="afi-icon">⚠</div>
+            <div class="afi-body">
+              <div class="afi-title">Compromisso em Atraso</div>
+              <div class="afi-desc">Renegociação Pneus JK — CAM-01</div>
+              <div class="afi-detail">Valor: R$ 1.400 · Vencimento: 18/05/2026 · 10 dias em atraso</div>
+              <div class="afi-actions">
+                <button class="btn btn-sm btn-danger">Regularizar</button>
+                <button class="btn btn-sm btn-ghost">Renegociar</button>
+              </div>
+            </div>
+            <div class="afi-status"><span class="status-pill atraso">Crítico</span></div>
+          </div>
+
+          <div class="alert-full-item yellow">
+            <div class="afi-icon">◷</div>
+            <div class="afi-body">
+              <div class="afi-title">Vencimento em 3 dias</div>
+              <div class="afi-desc">Seguro RCTR-C — CAM-01</div>
+              <div class="afi-detail">Valor: R$ 620 · Vencimento: 31/05/2026</div>
+              <div class="afi-actions">
+                <button class="btn btn-sm btn-gradient">Marcar como Pago</button>
+              </div>
+            </div>
+            <div class="afi-status"><span class="status-pill pend">Próximo</span></div>
+          </div>
+
+          <div class="alert-full-item blue">
+            <div class="afi-icon">◈</div>
+            <div class="afi-body">
+              <div class="afi-title">CAM-02 em Manutenção há 8 dias</div>
+              <div class="afi-desc">Impacto no caixa: receita prevista reduzida</div>
+              <div class="afi-detail">Caminhão parado desde 20/05/2026 · Perda estimada: R$ 7.600</div>
+            </div>
+            <div class="afi-status"><span class="status-pill future">Info</span></div>
+          </div>
+        </div>
+
+        <!-- INDICADORES DE PERFORMANCE -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title">Indicadores do Painel</h3></div>
+          <div class="indicators-grid">
+            <div class="ind-item">
+              <div class="ind-label">Obrigações Mês Atual</div>
+              <div class="ind-val">R$ 28.450</div>
+            </div>
+            <div class="ind-item">
+              <div class="ind-label">Faturamento Mínimo</div>
+              <div class="ind-val">R$ 32.700</div>
+            </div>
+            <div class="ind-item">
+              <div class="ind-label">Endividamento Total</div>
+              <div class="ind-val">R$ 312.840</div>
+            </div>
+            <div class="ind-item">
+              <div class="ind-label">Próximo Vencimento</div>
+              <div class="ind-val ind-sm">30/05 · R$ 4.800</div>
+            </div>
+            <div class="ind-item ind-green">
+              <div class="ind-label">Resultado CAM-01</div>
+              <div class="ind-val">+R$ 6.320</div>
+            </div>
+            <div class="ind-item ind-yellow">
+              <div class="ind-label">Resultado CAM-02</div>
+              <div class="ind-val">+R$ 1.100</div>
+            </div>
+            <div class="ind-item ind-red">
+              <div class="ind-label">Comprometimentos Atraso</div>
+              <div class="ind-val">2 · R$ 3.200</div>
+            </div>
+            <div class="ind-item">
+              <div class="ind-label">Relação Dívida/Fat.</div>
+              <div class="ind-val">73,2%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ PAGE: CONFIGURAÇÕES ════════════ -->
+      <section class="page" id="page-configuracoes">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Configurações</h2>
+            <p class="page-subtitle">Parâmetros e preferências do sistema</p>
+          </div>
+        </div>
+
+        <div class="config-grid">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Meta de Faturamento</h3></div>
+            <div class="form-grid config-form">
+              <div class="form-field">
+                <label class="form-label">Margem de Segurança (%)</label>
+                <input class="form-input" type="number" value="15" />
+                <span class="form-hint">Ex: 15 = mínimo + 15% de folga</span>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Comissão Média Padrão (%)</label>
+                <input class="form-input" type="number" value="13" />
+                <span class="form-hint">Usado na resolução da circularidade</span>
+              </div>
+              <div class="form-field">
+                <label class="form-label">Combustível Estimado CAM-01 (R$/mês)</label>
+                <input class="form-input" type="text" value="3.800,00" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Combustível Estimado CAM-02 (R$/mês)</label>
+                <input class="form-input" type="text" value="3.200,00" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Pedágio Estimado CAM-01 (R$/mês)</label>
+                <input class="form-input" type="text" value="1.200,00" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Pedágio Estimado CAM-02 (R$/mês)</label>
+                <input class="form-input" type="text" value="980,00" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Separação PF × PJ</h3></div>
+            <div class="pf-pj-info">
+              <div class="pf-pj-banner">
+                <span class="ppb-icon">⚑</span>
+                <div>
+                  <strong>Este painel é exclusivo para CNPJ / Audan Transportes</strong>
+                  <p>Nenhuma despesa pessoal do sócio deve ser lançada aqui.</p>
+                </div>
+              </div>
+              <div class="pf-pj-rules">
+                <div class="pfpj-rule not-allowed">✕ Cheque especial PF do sócio</div>
+                <div class="pfpj-rule not-allowed">✕ Cartões de crédito pessoais</div>
+                <div class="pfpj-rule not-allowed">✕ Despesas domésticas e pessoais</div>
+                <div class="pfpj-rule not-allowed">✕ Financiamentos em nome do CPF</div>
+                <div class="pfpj-rule allowed">✓ Aporte de sócio (registrar como dívida da empresa)</div>
+                <div class="pfpj-rule allowed">✓ Pró-labore (categoria ADM)</div>
+              </div>
+            </div>
+            <div class="form-field" style="margin-top:1.5rem">
+              <label class="form-label">Pró-labore Mensal do Sócio (R$)</label>
+              <input class="form-input" type="text" placeholder="Ex: 5.000,00" />
+              <span class="form-hint">Lançado automaticamente como despesa ADM mensal</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Rateio Despesas Gerais</h3></div>
+            <div class="rateio-config">
+              <div class="rateio-item">
+                <span class="rateio-label">CAM-01</span>
+                <input class="form-input rateio-input" type="number" value="50" />
+                <span class="rateio-pct">%</span>
+              </div>
+              <div class="rateio-divider">+</div>
+              <div class="rateio-item">
+                <span class="rateio-label">CAM-02</span>
+                <input class="form-input rateio-input" type="number" value="50" />
+                <span class="rateio-pct">%</span>
+              </div>
+              <div class="rateio-divider">=</div>
+              <div class="rateio-total">100%</div>
+            </div>
+            <span class="form-hint">Padrão: 50% para cada caminhão. Ajuste conforme necessário.</span>
+          </div>
+        </div>
+
+        <div class="config-footer">
+          <button class="btn btn-ghost">Restaurar Padrões</button>
+          <button class="btn btn-gradient">Salvar Configurações</button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // Navigation
+    const loginScreen = document.getElementById('login-screen');
+    const appShell = document.getElementById('app-shell');
+    const btnLogin = document.getElementById('btn-login');
+    const btnLogout = document.getElementById('btn-logout');
+    const navItems = document.querySelectorAll('.nav-item[data-page]');
+    const pages = document.querySelectorAll('.page');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const hamburger = document.getElementById('hamburger');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+
+    btnLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginScreen.classList.add('hidden');
+      appShell.classList.remove('hidden');
+    });
+
+    btnLogout.addEventListener('click', (e) => {
+      e.preventDefault();
+      appShell.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+    });
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = item.dataset.page;
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        pages.forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + target)?.classList.add('active');
+        // Close mobile sidebar
+        sidebar.classList.remove('mobile-open');
+        mobileOverlay.classList.remove('visible');
+      });
+    });
+
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('mobile-open');
+      mobileOverlay.classList.toggle('visible');
+    });
+
+    mobileOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('mobile-open');
+      mobileOverlay.classList.remove('visible');
+    });
+  </script>
+</body>
+</html>
